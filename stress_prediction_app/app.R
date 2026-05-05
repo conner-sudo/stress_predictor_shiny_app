@@ -3,8 +3,7 @@ suppressPackageStartupMessages(library(bslib))
 suppressPackageStartupMessages(library(shiny))
 suppressPackageStartupMessages(library(mgcv))
 
-# ── Load model & data ─────────────────────────────────────────────────────────
-# Use relative paths for portability
+# Load model & data 
 bundle_path <- "stress_prediction_model.rds"
 bundle <- readRDS(bundle_path)
 
@@ -14,10 +13,13 @@ if (!is.list(bundle) || is.null(bundle$model)) {
 
 model        <- bundle$model
 stress.clean <- bundle$stress.clean
-# gamlss requires the training data to be in the global environment for prediction formulas to evaluate correctly
+
 assign("stress.clean", stress.clean, envir = .GlobalEnv)
 
-# ── Train productivity estimator (GAM) ─────────────────────────────────────────
+# Train productivity estimator (GAM)
+# Productivity is a key predictor of stress in the main model, but we don't want to ask users to input it directly.
+# Instead, we train a separate GAM to estimate productivity based on lifestyle factors, and feed that into the main model.
+
 productivity_model <- gam(
   productivity ~ s(sleep_hours, bs = "tp", k = 5) + 
                  s(leisure_screen_hours, bs = "tp", k = 5) + 
@@ -27,7 +29,7 @@ productivity_model <- gam(
                  s(age, bs = "tp", k = 5) +
                  gender + occupation + work_mode,
   data = stress.clean,
-  family = betar()  # Beta regression for 0-1 bounded data
+  family = betar()
 )
 
 estimate_productivity <- function(sleep_hours, leisure_screen_hours, work_screen_hours, 
@@ -48,7 +50,7 @@ estimate_productivity <- function(sleep_hours, leisure_screen_hours, work_screen
   pmin(pmax(pred, 0), 1)
 }
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
+# Helpers 
 stress_colour <- function(score) {
   if (is.na(score)) return("#6c757d")
   if (score < 0.33) return("#2ecc71")
@@ -64,7 +66,7 @@ stress_band <- function(score) {
   return("Severe Stress")
 }
 
-# ── UI ────────────────────────────────────────────────────────────────────────
+# UI 
 ui <- page_sidebar(
   title = "Stress Level Predictor",
   theme = bs_theme(bootswatch = "flatly"),
@@ -137,9 +139,7 @@ ui <- page_sidebar(
   )
 )
 
-
-
-
+# Server
 server <- function(input, output, session) {
 
   prediction <- eventReactive(input$predict_btn, {
@@ -158,6 +158,7 @@ server <- function(input, output, session) {
       leisure_screen_hours      = as.numeric(input$leisure_screen_hours),
       exercise_minutes_per_week = as.numeric(input$exercise_minutes_per_week),
       social_hours_per_week     = as.numeric(input$social_hours_per_week),
+      # Feed the estimated productivity from the GAM into the main model
       productivity              = estimate_productivity(
                                       input$sleep_hours,
                                       input$leisure_screen_hours,
@@ -182,7 +183,7 @@ server <- function(input, output, session) {
     round(as.numeric(pred), 4)
   })
 
-  # ── Gauge ─────────────────────────────────────────────────────────────────────
+  # Gauge 
   output$stress_gauge <- renderUI({
     score <- prediction()
     pct   <- round(score * 100, 1)
@@ -232,7 +233,7 @@ server <- function(input, output, session) {
     )
   })
 
-  # ── Interpretation ────────────────────────────────────────────────────────────
+  # Interpretation 
   output$interpretation <- renderUI({
     score <- prediction()
     band  <- stress_band(score)
@@ -283,5 +284,5 @@ server <- function(input, output, session) {
   })
 }
 
-# ── Run ───────────────────────────────────────────────────────────────────────
+# Run Shiny App
 shinyApp(ui, server)
