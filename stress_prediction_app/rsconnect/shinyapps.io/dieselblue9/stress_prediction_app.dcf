@@ -1,0 +1,10 @@
+name: stress_prediction_app
+title:
+username: dieselblue9
+account: dieselblue9
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 17293516
+bundleId: 11948615
+url: https://dieselblue9.shinyapps.io/stress_prediction_app/
+version: 1
