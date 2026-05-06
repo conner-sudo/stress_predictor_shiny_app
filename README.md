@@ -1,6 +1,7 @@
 # Stress Predictor Shiny App
 
 [![Live App](https://img.shields.io/badge/Live-Shiny_App-blue?style=for-the-badge&logo=R)](https://connerspear.shinyapps.io/stress_prediction_app/)
+![thumbnail](https://github.com/conner-sudo/stress_predictor_shiny_app/blob/main/images/thumbnail_stress_app.png)
 
 ## Overview
 This repository contains the code and documentation for a production-ready **R Shiny application** designed to predict psychological stress levels based on lifestyle factors. 
