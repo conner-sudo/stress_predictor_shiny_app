@@ -3,6 +3,7 @@
 ![Modeling](https://img.shields.io/badge/Modeling-caret-yellow.svg)
 ![Data Visualization](https://img.shields.io/badge/Data_Visualization-ggplot2-red.svg)
 ![Statistical Modeling](https://img.shields.io/badge/Statistical_Modeling-gamlss-purple.svg)
+![Data Manipulation](https://img.shields.io/badge/Data_Manipulation-dplyr-green.svg)
 
 [![Live App](https://img.shields.io/badge/Live-Shiny_App-blue?style=for-the-badge&logo=R)](https://connerspear.shinyapps.io/stress_prediction_app/)
 ![thumbnail](https://github.com/conner-sudo/stress_predictor_shiny_app/blob/main/images/thumbnail_stress_app.png)
