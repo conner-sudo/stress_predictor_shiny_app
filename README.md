@@ -1,5 +1,5 @@
 # Stress Predictor Shiny App
-![R](https://img.shields.io/badge/Python-3.8+-blue.svg)
+![R](https://img.shields.io/badge/R-4.5+-blue.svg)
 ![Modeling](https://img.shields.io/badge/Modeling-caret-yellow.svg)
 ![Data Visualization](https://img.shields.io/badge/Data_Visualization-ggplot2-blue.svg)
 ![Statistical Modeling](https://img.shields.io/badge/Statistical_Modeling-gamlss-purple.svg)
