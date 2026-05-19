@@ -1,4 +1,8 @@
 # Stress Predictor Shiny App
+![R](https://img.shields.io/badge/Python-3.8+-blue.svg)
+![Modeling](https://img.shields.io/badge/Modeling-caret-yellow.svg)
+![Data Visualization](https://img.shields.io/badge/Data_Visualization-ggplot2-blue.svg)
+![Statistical Modeling](https://img.shields.io/badge/Statistical_Modeling-gamlss-purple.svg)
 
 [![Live App](https://img.shields.io/badge/Live-Shiny_App-blue?style=for-the-badge&logo=R)](https://connerspear.shinyapps.io/stress_prediction_app/)
 ![thumbnail](https://github.com/conner-sudo/stress_predictor_shiny_app/blob/main/images/thumbnail_stress_app.png)
